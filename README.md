@@ -6,10 +6,10 @@ high-resolution hyperspectral sugarcane images. It is established for the early 
 of sugarcane diseases. 
 ## Overview
 - [Abstract](#abstract)
-- [Sugarcane Plants Summary](#Sugarcane Plants Summary)
-- [Dataset Summary](#Dataset Summary)
-- [Root Folder Structure](#Root Folder Structure)
-- [Image Preprocessing](#Image Preprocessing)
+- [Sugarcane Plants Summary](#sugarcane-plants-summary)
+- [Dataset Summary](#dataset-summary)
+- [Root Folder Structure](#root-folder-structure)
+- [Image Preprocessing](#image-preprocessing)
 - [Download](#Download)
 - [Labels](#Labels)
 - [Acknowledgements](#Acknowledgements)
