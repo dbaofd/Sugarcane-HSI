@@ -6,12 +6,15 @@ high-resolution hyperspectral sugarcane images. It is established for the early 
 of sugarcane diseases. 
 ## Overview
 - [Abstract](#abstract)
-- [Sugarcane Plants Summary](#sugarcane-plants-summary)
+- [Sugarcane Plant Summary](#sugarcane-plant-summary)
 - [Dataset Summary](#dataset-summary)
 - [Root Folder Structure](#root-folder-structure)
-- [Image Preprocessing](#image-preprocessing)
+- [Inspection and Loading of Hyperspectral Images](#Inspection-and-Loading-of-Hyperspectral-Images)
+- [Hyperspectral Image Preprocessing](#hyperspectral-image-preprocessing)
+- [Removal of Corrupted Bands](#Removal-of-Corrupted-Bands)
 - [Download](#Download)
 - [Labels](#Labels)
+- [Licensing](#Licensing)
 - [Acknowledgements](#Acknowledgements)
 - [Citation](#Citation)
 
@@ -19,9 +22,11 @@ of sugarcane diseases.
 This is a high-resolution hyperspectral imaging dataset on the early detection of sugarcane diseases which was collected at the 
 Pathology Research Station, [Sugar Research Australia](https://sugarresearch.com.au/), Woodford, Queensland in 2021. 
 The dataset include two subsets for Sugarcane Mosaic Virus (ScMV) and sugarcane smut diseases respectively.
-In total there are 3245 high-resolution hyperspectral images. 
+In total there are 3245 high-resolution hyperspectral images. An [Imec Snapscan VNIR](https://www.imechyperspectral.com/en/cameras/snapscan-vnir) camera was used to capture images. This camera 
+can capture visible and near-infrared (VNIR) light from 470 nm to 900 nm wavelengths with 150 spectral bands. A
+captured image is a data cube with a size of 1088 × 2048 × 150.
 
-## Sugarcane Plants Summary
+## Sugarcane Plant Summary
 <div>
   <img width="100%" alt="plant summary" src="images/sugarcane_plants_summary.png">
 </div>
@@ -68,13 +73,27 @@ There are two folders for each variety, for example, Nco310 and Nco310_c. Nco310
 contains images of inoculated sugarcane plant, while Nco310_c contains images of 
 healthy(control) sugarcane plants. There is a dark reference in each subdataset folder.
 
-## Image Preprocessing
+## Inspection and Loading of Hyperspectral Images
+To inspect images in this dataset, [Scyven](https://scyllarus.data61.csiro.au/software/scyven/) can be used.
+Once it is installed, just open any hyperspectral image by clicking on the corresponding ".hdr" file. 
+In this hyperspectral format (ENVI), each hyperspectral image has two files, ".hdr" and ".raw". The former one records 
+only image meta information, actual image information are stored in the ".raw" file. For loading a hyperspectral image 
+in Python, [Spectral Python (SPy)](https://www.spectralpython.net/) module can be used. Specifically, use envi.open() 
+function to open ".hdr" file, then the image can be converted to numpy array easily.
+
+## Hyperspectral Image Preprocessing
 Images in this dataset are not calibrated or preprocess, they
 are original images, so users should decide how to preprocess these images. 
 However, the preprocessing algorithm used in our research is provided in this 
 repo for users with interests. The detailed instruction can be fond in [preprocessing_algorithm.md](https://github.com/dbaofd/Sugarcane-HSI/blob/main/preprocessing_algorithm.md)
 
-
+## Removal of Corrupted Bands
+The Imec Snapscan VNIR camera can capture images with 161 bands with only 150 bands are
+useful, 11 bands are corrupted due to technical limitations. Images in this dataset have
+161 bands. When doing research with this dataset, the 11 corrupted bands should be removed 
+in code. The indices of these 11 corrupted bands are [0,1,2,45,46,47,48,49,50,159,160]. 
+When loading one such image in Python using SPy, it can be converted to numpy array easily. 
+Afterwards, use slice operation to remove corrupted bands. 
 ## Download
 This dataset has been released for open access on [research repository](https://doi.org/10.25904/1912/4757).
 Fill the form in this website and submit the request for dataset download. Note that 
