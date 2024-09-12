@@ -33,7 +33,7 @@ used for sugarcane smut disease study and another 5 sugarcane varieties for ScMV
 <div>
   <img width="100%" alt="dataset summary" src="images/dataset_summary.png">
 </div>
-This dataset contains hyperspectral sugarcane images captured over a period of 20 weeks. This table shows image distribution of these 20 sub-datasets.
+This dataset contains hyperspectral sugarcane images captured over a period of 20 weeks. This table shows image distribution of these 20 subdatasets.
 We started to capture sugarcane smut images on Mar 10, 2021. The mosaic images were collected from Apr 22, 2021. So subdatasets collected before Apr 22 
 only contains sugarcane smut images. Note that numbers in red indicate that data collection for the corresponding group of sugarcane was not completed 
 due to some factors, e.g., wind, rain, and lighting conditions.
@@ -72,7 +72,7 @@ healthy(control) sugarcane plants. There is a dark reference in each subdataset 
 Images in this dataset are not calibrated or preprocess, they
 are original images, so users should decide how to preprocess these images. 
 However, the preprocessing algorithm used in our research is provided in this 
-repo for users with interests. The detailed instruction can be fond in [preprocessing_algorithm.md](https://github.com/dbaofd/Sugarcane-HSI/main/preprocessing_algorithm.md)
+repo for users with interests. The detailed instruction can be fond in [preprocessing_algorithm.md](https://github.com/dbaofd/Sugarcane-HSI/blob/main/preprocessing_algorithm.md)
 
 
 ## Download

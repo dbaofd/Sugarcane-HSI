@@ -79,7 +79,6 @@ def morphology_operation(m):
     return m
 
 
-#
 def find_brightest_pixel(img_as_np):
     """
     Perform the k-means clustering to find the white board in a hsi image,
