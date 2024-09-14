@@ -15,7 +15,7 @@ The overall flowchart of the algorithm is shown in the above chart which highlig
 found in the paper that is listed in the "Citation" section.
 ## Overview
 - [1. Calibration of Hyperspectral Images](#1-Calibration-of-Hyperspectral-Images)
-  - [1.1 Method for Scenario One](#11-Method-for-Scenario-One])
+  - [1.1 Method for Scenario One](#11-Method-for-Scenario-One)
   - [1.2 Method for Scenario Two](#12-Method-for-Scenario-Two)
   - [1.3 Code to Refer to](#13-Code-to-Refer-to)
 - [2. Convert HSI to RGB](#2-Convert-HSI-to-RGB)
