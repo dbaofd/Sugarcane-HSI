@@ -85,7 +85,7 @@ function to open ".hdr" file, then the image can be converted to numpy array eas
 Images in this dataset are not calibrated or preprocess, they
 are original images, so users should decide how to preprocess these images. 
 However, the preprocessing algorithm used in our research is provided in this 
-repo for users with interests. The detailed instruction can be fond in [preprocessing_algorithm.md](https://github.com/dbaofd/Sugarcane-HSI/blob/main/preprocessing_algorithm.md)
+repo for users with interests. The detailed instruction can be fond in [README2.md](https://github.com/dbaofd/Sugarcane-HSI/blob/main/preprocessing_algorithm.md)
 
 ## Removal of Corrupted Bands
 The Imec Snapscan VNIR camera can capture images with 161 bands with only 150 bands are
