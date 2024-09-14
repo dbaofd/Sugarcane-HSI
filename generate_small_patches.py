@@ -4,6 +4,12 @@ Given a subdataset with all the image being preprocessed.
 Manually create new subdataset folder (including the folders inside) for storing image patches.
 This script can load a txt file which contains coordinates of every qualified image patch, then
 based on these coordinate, image patches can be extracted from original hsi images, and then saved.
+
+Parameters need change:
+1) IMG_PATH
+2) SAVING_PATH
+3) COORDINATE_TXT
+4) WINDOWS_SIZE if you want to stick with 32, you may specify a new one.
 """
 from spectral import *
 import numpy as np
@@ -11,8 +17,9 @@ from hsi_calibration_utils import modify_hdr
 
 IMG_PATH="D:\Sugarcane_Dataset\Apr22/"
 SAVING_PATH="F:\Sugarcane_Image_Patch\Apr22_patches/"
+COORDINATE_TXT = "F:\mosaic_coordinates/Apr22_small_mosaic.txt"
 WINDOWS_SIZE=32# size of image patch
-f=open("F:\mosaic_coordinates/Apr22_small_mosaic.txt") # load the generated coordinates, it follows a format defined by the coordinate generation file.
+f=open(COORDINATE_TXT) # load the generated coordinates, it follows a format defined by the coordinate generation file.
 f_list=[]
 for line in f:# load all the coordinate into the list.
     f_list.append((line.split('+')[0],line.split('+')[1]))

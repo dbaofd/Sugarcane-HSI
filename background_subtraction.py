@@ -4,6 +4,11 @@ it loads calibrated images and corresponding semantic labels.
 Then apply elementwise multiplication between images and labels,
 the newly generated image has no background.
 It can do the background subtraction for multiple subdatasets at the same time.
+
+Parameters need change:
+1) IMG_PATH
+2) LABEL_PATH
+3) SAVING_PATH
 """
 from spectral import *
 import numpy as np

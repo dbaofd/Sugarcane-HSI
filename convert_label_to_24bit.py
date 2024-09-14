@@ -3,6 +3,11 @@ This script is used to convert 32 bit depth rgb label to 24 bit depth label.
 We used Windows Paint to improve our semantic labels for sugarcane images,
 Windows Paint saves label as 32 bit depth file, in that case labels will have 4 channels.
 So we need to convert the label into 3 channels label.
+
+Parameters need change:
+1) path
+2) dir_li
+3) img_li
 """
 
 import os

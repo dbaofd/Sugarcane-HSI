@@ -3,6 +3,9 @@ A script to execute labelme command in batch.
 When there are many labelme json files need to be converted to
 actual labels, this script can execute labelme command in batch efficiently.
 Make sure to install labelme on the system first.
+
+Parameters need change:
+1) path
 """
 import os
 

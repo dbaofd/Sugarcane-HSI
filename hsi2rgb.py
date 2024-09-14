@@ -1,5 +1,8 @@
 """
 This script is used to convert all the hsi image of a given subdataset into rgb images.
+
+Parameters need change:
+1) IMG_PATH Make sure to manually create a RGB folder under this IMG_PATH
 """
 from spectral import *
 import numpy as np
@@ -24,8 +27,8 @@ def hsi2rgb_conversion(hsi_img, save_path):
 
 dir_list = []
 file_list = []
-IMG_PATH = [
-    'I:\Sugarcane_Dataset_No_Background\Jun23']  # List of subdataset paths, replace it with yours, you can have one or more subdatasets.
+IMG_PATH = ['I:\Sugarcane_Dataset_No_Background\Jun23'] # one or multiple subdataset folders.
+# List of subdataset paths, replace it with yours, you can have one or more subdatasets.
 # In each subdataset folder, there should have a 'RGB' folder, manually create it.
 # In each subdataset folder, there will be multiple subfolders, each sub-folder should contain the
 # images of one variety of sugarcane like mentioned in README.md
