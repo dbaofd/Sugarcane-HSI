@@ -1,6 +1,10 @@
 # The Sugarcane-HSI Dataset
 [<ins>Jun Zhou</ins>](https://scholar.google.com/citations?user=6hOOxw0AAAAJ&hl=en&oi=ao) [<ins>Dong Bao</ins>](https://scholar.google.com/citations?user=ZRZYhssAAAAJ&hl=en&oi=ao)
 
+<div>
+  <img width="100%" alt="cover" src="images/sugarcane_cover.png">
+</div>
+
 Welcome to the homepage of the Sugarcane-HSI dataset. Sugarcane-HSI contains 3245 
 high-resolution hyperspectral sugarcane images. It is established for the early detection 
 of sugarcane diseases. 

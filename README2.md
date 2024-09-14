@@ -14,25 +14,25 @@ The overall flowchart of the algorithm is shown in the above chart which highlig
 7 major steps. Note that further details of preprocessing can be 
 found in the paper that is listed in the "Citation" section.
 ## Overview
-- [1. Calibration of Hyperspectral Images](#1.-Calibration-of-Hyperspectral-Images)
-  - [1.1 Method for Scenario One](1.1-Method-for-Scenario-One])
-  - [1.2 Method for Scenario Two](1.2-Method-for-Scenario-Two)
-  - [1.3 Code to Refer to](1.3-Code-to-Refer-to)
-- [2. Convert HSI to RGB](2.-Convert-HSI-to-RGB)
-  - [2.1 Code to Refer to](2.1 Code to Refer to)
-- [3. Manual Annotation](3.-Manual-Annotation)
-  - [3.1 Code to Refer to](3.1-Code-to-Refer-to)
-- [4. SVM Training](4.-SVM-Training)
-  - [4.1 Code to Refer to](4.1-Code-to-Refer-to)
-- [5. Sugarcane Segmentation](5.-Sugarcane-Segmentation)
-  - [5.1 Code to Refer to](5.1-Code-to-Refer-to)
-- [6. Background Subtraction](6.-Background-Subtraction)
-  - [6.1 Code to Refer to](6.1-Code-to-Refer-to)
-- [7. Image Patch Generation](7.-Image-Patch-Generation)
-  - [7.1 Method](7.1-Method)
-  - [7.2 Predefined Thresholds](7.2 Predefined Thresholds)
-  - [7.3 Code to Refer to](7.3-Code-to-Refer-to)
-- [8. Citation](8.-Citation)
+- [1. Calibration of Hyperspectral Images](#1-Calibration-of-Hyperspectral-Images)
+  - [1.1 Method for Scenario One](11-Method-for-Scenario-One])
+  - [1.2 Method for Scenario Two](12-Method-for-Scenario-Two)
+  - [1.3 Code to Refer to](13-Code-to-Refer-to)
+- [2. Convert HSI to RGB](2-Convert-HSI-to-RGB)
+  - [2.1 Code to Refer to](21-Code-to-Refer-to)
+- [3. Manual Annotation](3-Manual-Annotation)
+  - [3.1 Code to Refer to](31-Code-to-Refer-to)
+- [4. SVM Training](4-SVM-Training)
+  - [4.1 Code to Refer to](41-Code-to-Refer-to)
+- [5. Sugarcane Segmentation](5-Sugarcane-Segmentation)
+  - [5.1 Code to Refer to](51-Code-to-Refer-to)
+- [6. Background Subtraction](6-Background-Subtraction)
+  - [6.1 Code to Refer to](61-Code-to-Refer-to)
+- [7. Image Patch Generation](7-Image-Patch-Generation)
+  - [7.1 Method](71-Method)
+  - [7.2 Predefined Thresholds](72-Predefined-Thresholds)
+  - [7.3 Code to Refer to](73-Code-to-Refer-to)
+- [8. Citation](8-Citation)
 ## 1. Calibration of Hyperspectral Images
 HSI calibration consists of a dark calibration and white calibration. The dark calibration
 can remove the system noise of the camera, while the white calibration can remove the influence
@@ -40,12 +40,12 @@ of different lighting conditions. However, there are two different scenarios req
 calibration methods. 
 
 ### 1.1 Method for Scenario One
-<u>Scenario one</u>: in an indoor environment where lighting condition can be fixed. In this case dark 
+<strong>Scenario one</strong>: in an indoor environment where lighting condition can be fixed. In this case dark 
 reference should be captured first by using the lid to cover the lens. Subsequently, remove the lid
 and capture white reference using a calibration board, make sure every pixel in the white reference
 image belongs to the calibration board. Then start to collect hyperspectral images.
 
-<u>Method</u>: we have hyperspectral image $I \in R^{h \times w \times c}$, dark reference 
+<strong>Method</strong>: we have hyperspectral image $I \in R^{h \times w \times c}$, dark reference 
 $D \in R^{h \times w \times c}$ and white reference $W \in R^{h \times w \times c}$. c is the band number,
 h is the height of the image amd w is the width. The calibrated image can be described as:
 
@@ -61,21 +61,22 @@ where subtraction and division are all elementwise operations.
 <div align="center">
   <img width="35%" alt="preprocessing" src="images/image_capture.png">
 </div>
-<u>Scenario two</u>: in an outdoor environment where lighting condition cannot be controlled. 
+<strong>Scenario two</strong>: in an outdoor environment where lighting condition cannot be controlled. 
 In this case, dark reference should be captured first by using the lid to cover the lens. Then we capture 
 object (sugarcane in our case) and white reference together in one image as is shown in the above image.
 Since the lighting condition may change at any second, every time when an object is being captured, the white
 reference should be captured at the same time, so this white reference can reflect the true lighting condition 
-of the moment when the object is being captured.Now the difficult part is how to get the white reference.
+of the moment when the object is being captured. Now the difficult part is how to get the white reference.
 
-<u>Method</u>: note that the calibration method described <u>in this repo</u> is for <u>scenario two</u>. 
+<strong>Method</strong>: <strong>note that the calibration method described in this repo is for scenario two</strong>. 
 Given an image $I\in R^{h\times w\times c}$, note that the calibration board is inside as well. Then we perform 
 dark calibration $I^{d}=I-D$. Since calibration board is in the image, the camera noise in the calibration 
 board (white reference) is removed as well. Then we start to do white calibration. We first use 
 k-means to extract the white reference in the image, k is set to 2. Since the image is a hyperspectral image, the
-rich spectral information enables the high accuracy of extracting the calibration board. Once the calibration board
-is extracted from a given image, we then get the mean white reference $W \in R^{c}$, then the calibrated image 
-can be described as:
+rich spectral information enables k-means to achieve high accuracy of calibration board extraction. Once the calibration board
+is extracted from a given image, we apply morphology operation to remove the calibration board pixels on the edge, then we remove 
+top 1% brightest pixels. Subsequently, we calculate the mean white reference $W \in R^{c}$ by averaging the top 1000 brightest pixels. 
+Eventually the calibrated image can be described as:
 <div align="center">
   <img width=60%" alt="e2" src="images/equation_2.png">
 </div>
@@ -160,10 +161,10 @@ decide to crop whole images into multiple patches.
 
 ### 7.1 Method
 We first obtain the top-left corner coordinated of all the image patches in an image. Then we take advantage of 
-semantic labels to select qualified image patches. We determine if an image patch is qualified, we check the percentage
+semantic labels to select qualified image patches. To determine if an image patch is qualified, we check the percentage
 of sugarcane pixels in this patch by using semantic label, if the percentage is beyond a predefined threshold, we 
 consider this image patch a qualified one. Then for every image in a subdataset, we obtain a list the top-left corner
-coordinates of qualified image patches, then we save them in a txt file. Then we load txt file, and then save image 
+coordinates of the qualified image patches, then we save them in a txt file. Then we load txt file, and then save image 
 patches based on the coordinates. 
 
 ### 7.2 Predefined Thresholds
