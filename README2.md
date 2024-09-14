@@ -9,12 +9,31 @@ preprocessing may only include calibration of the images. Or maybe some research
 background removal as well. You may refer to our algorithm, and adapt it to make it more suitable
 for your research. E.g., you may use our algorithm for calibration only, or background removal.
 
-This file will illustrate the preprocessing algorithm we designed for our research. 
+This documentation will illustrate the preprocessing algorithm we designed for our research. 
 The overall flowchart of the algorithm is shown in the above chart which highlights 
 7 major steps. Note that further details of preprocessing can be 
 found in the paper that is listed in the "Citation" section.
-
-## 1. Calibration of Hyperspectral Images.
+## Overview
+- [1. Calibration of Hyperspectral Images](#1.-Calibration-of-Hyperspectral-Images)
+  - [1.1 Method for Scenario One](1.1-Method-for-Scenario-One])
+  - [1.2 Method for Scenario Two](1.2-Method-for-Scenario-Two)
+  - [1.3 Code to Refer to](1.3-Code-to-Refer-to)
+- [2. Convert HSI to RGB](2.-Convert-HSI-to-RGB)
+  - [2.1 Code to Refer to](2.1 Code to Refer to)
+- [3. Manual Annotation](3.-Manual-Annotation)
+  - [3.1 Code to Refer to](3.1-Code-to-Refer-to)
+- [4. SVM Training](4.-SVM-Training)
+  - [4.1 Code to Refer to](4.1-Code-to-Refer-to)
+- [5. Sugarcane Segmentation](5.-Sugarcane-Segmentation)
+  - [5.1 Code to Refer to](5.1-Code-to-Refer-to)
+- [6. Background Subtraction](6.-Background-Subtraction)
+  - [6.1 Code to Refer to](6.1-Code-to-Refer-to)
+- [7. Image Patch Generation](7.-Image-Patch-Generation)
+  - [7.1 Method](7.1-Method)
+  - [7.2 Predefined Thresholds](7.2 Predefined Thresholds)
+  - [7.3 Code to Refer to](7.3-Code-to-Refer-to)
+- [8. Citation](8.-Citation)
+## 1. Calibration of Hyperspectral Images
 HSI calibration consists of a dark calibration and white calibration. The dark calibration
 can remove the system noise of the camera, while the white calibration can remove the influence
 of different lighting conditions. However, there are two different scenarios require different 
@@ -29,7 +48,13 @@ image belongs to the calibration board. Then start to collect hyperspectral imag
 <u>Method</u>: we have hyperspectral image $I \in R^{h \times w \times c}$, dark reference 
 $D \in R^{h \times w \times c}$ and white reference $W \in R^{h \times w \times c}$. c is the band number,
 h is the height of the image amd w is the width. The calibrated image can be described as:
-$$I_{norm}=\frac{I-D}{W-D}$$
+
+<div align="center">
+  <img width=25%" alt="e2" src="images/equation_1.png">
+</div>
+
+[//]: # ($$I_{norm}=\frac{I-D}{W-D}$$)
+
 where subtraction and division are all elementwise operations. 
 
 ### 1.2 Method for Scenario Two
@@ -45,45 +70,56 @@ of the moment when the object is being captured.Now the difficult part is how to
 
 <u>Method</u>: note that the calibration method described <u>in this repo</u> is for <u>scenario two</u>. 
 Given an image $I\in R^{h\times w\times c}$, note that the calibration board is inside as well. Then we perform 
-dark calibration $I^{'}=I-D$. Since calibration board is in the image, the camera noise in the calibration 
+dark calibration $I^{d}=I-D$. Since calibration board is in the image, the camera noise in the calibration 
 board (white reference) is removed as well. Then we start to do white calibration. We first use 
 k-means to extract the white reference in the image, k is set to 2. Since the image is a hyperspectral image, the
 rich spectral information enables the high accuracy of extracting the calibration board. Once the calibration board
 is extracted from a given image, we then get the mean white reference $W \in R^{c}$, then the calibrated image 
 can be described as:
-$$I_{norm} = \frac{I^{'}}{W}=
-\begin{bmatrix}
-I^{'}_{11}/W&I^{'}_{12}/W& ... &I^{'}_{1w}/W \\
-I^{'}_{21}/W&I^{'}_{22}/W& ... &I^{'}_{2w}/W \\
-\vdots&\vdots&\ddots&\vdots\\
-I^{'}_{h1}/W&I^{'}_{h2}/W& ... &I^{'}_{hw}/W \\
-\end{bmatrix}
-$$
-### 1.3 Code to Refer to
-<u><strong>calibration.ipynb</strong></u>
+<div align="center">
+  <img width=60%" alt="e2" src="images/equation_2.png">
+</div>
 
-<u><strong>hsi_calibration_utils.py</strong></u>
+[//]: # ($$I_{norm} = \frac{I^{'}}{W}=)
+
+[//]: # (\begin{bmatrix})
+
+[//]: # (I^{d}_{11}/W&I^{d}_{12}/W& ... &I^{d}_{1w}/W \\)
+
+[//]: # (I^{d}_{21}/W&I^{d}_{22}/W& ... &I^{d}_{2w}/W \\)
+
+[//]: # (\vdots&\vdots&\ddots&\vdots\\)
+
+[//]: # (I^{d}_{h1}/W&I^{d}_{h2}/W& ... &I^{d}_{hw}/W \\)
+
+[//]: # (\end{bmatrix})
+
+[//]: # ($$)
+### 1.3 Code to Refer to
+[calibration.ipynb](https://github.com/dbaofd/Sugarcane-HSI/blob/main/calibration.ipynb)
+
+[hsi_calibration_utils.py](https://github.com/dbaofd/Sugarcane-HSI/blob/main/hsi_calibration_utils.py)
 
 ## 2. Convert HSI to RGB
 The purpose of this step is to prepare RGB images, so manual annotations can be done 
 on these RGB images.
 
 ### 2.1 Code to Refer to
-<u><strong>hsi2rgb.py</strong></u>
+[hsi2rgb.py](https://github.com/dbaofd/Sugarcane-HSI/blob/main/hsi2rgb.py)
 
 ## 3. Manual Annotation
 We used a tool called [Labelme](https://github.com/labelmeai/labelme) for manual annotation. 
 Semantic labels of some images are provided in this repo. Refer to ..
 ### 3.1 Code to Refer to
-<u><strong>convert_label_to_24bit.py</strong></u>
+[convert_label_to_24bit.py](https://github.com/dbaofd/Sugarcane-HSI/blob/main/convert_label_to_24bit.py)
 
-<u><strong>execute_labelme_command_in_batch.py</strong></u>
+[execute_labelme_command_in_batch.py](https://github.com/dbaofd/Sugarcane-HSI/blob/main/execute_labelme_command_in_batch.py)
 
 ## 4. SVM Training
 Once we have the semantic labels, we then can train an SVM model that can be used for 
 sugarcane segmentation for the whole dataset. 
 ### 4.1 Code to Refer to
-<u><strong>train_svm.ipynb</strong></u>
+[train_svm.ipynb](https://github.com/dbaofd/Sugarcane-HSI/blob/main/train_svm.ipynb)
 
 
 ## 5. Sugarcane Segmentation
@@ -95,9 +131,9 @@ images in the whole dataset. Some of the labels generated may not be good, so we
 morphology to refine the labels. 
 
 ### 5.1 Code to Refer to
-<u><strong>sugarcane_segmentation.ipynb</strong></u>
+[sugarcane_segmentation.ipynb](https://github.com/dbaofd/Sugarcane-HSI/blob/main/sugarcane_segmentation.ipynb)
 
-<u><strong>label_morphology_refine.py</strong></u>
+[label_morphology_refine.py](https://github.com/dbaofd/Sugarcane-HSI/blob/main/label_morphology_refine.py)
 
 ## 6. Background Subtraction
 <div align="center">
@@ -110,7 +146,7 @@ pixels in the image will remain unchanged while background pixels will be change
 illutrates the process. 
 
 ### 6.1 Code to Refer to
-<u><strong>background_subtraction.py</strong></u>
+[background_subtraction.py](https://github.com/dbaofd/Sugarcane-HSI/blob/main/background_subtraction.py)
 
 ## 7. Image Patch Generation
 <div align="center">
@@ -130,18 +166,18 @@ consider this image patch a qualified one. Then for every image in a subdataset,
 coordinates of qualified image patches, then we save them in a txt file. Then we load txt file, and then save image 
 patches based on the coordinates. 
 
-### 7.2 Predefined Threshold for All the Subdatasets
+### 7.2 Predefined Thresholds
 <div align="center">
-  <img width="100%" alt="background_subtraction" src="images/predefined_thresholds.png">
+  <img width="80%" alt="background_subtraction" src="images/predefined_thresholds.png">
 </div>
 This table summarizes the predefined thresholds for all the subdatasets. The reason that these 
 threshold varies is that sugarcane in the beginning they are very small, so not many image patches
 will have maybe more than 10% sugarcane pixels. To still generate enough image patches, we low down the thresholds.
 
 ### 7.3 Code to Refer to
-<u><strong>image_patch_coordinate_generation_using_sliding_window.ipynb</strong></u>
+[image_patch_coordinate_generation_using_sliding_window.ipynb](https://github.com/dbaofd/Sugarcane-HSI/blob/main/image_patch_coordinate_generation_using_sliding_window.ipynb)
 
-<u><strong>generate_small_patches.py</strong></u>
+[generate_small_patches.py](https://github.com/dbaofd/Sugarcane-HSI/blob/main/generate_small_patches.py)
 ## 8. Citation
 If you want to use this preprocessing algorithm in your research, please consider starring or citing, cheers.
 ```
