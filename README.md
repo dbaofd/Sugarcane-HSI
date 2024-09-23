@@ -117,7 +117,7 @@ This dataset is a collaboration between [Griffith University](https://www.griffi
 and [Sugar Research Australia](https://sugarresearch.com.au/), it was supported by the 
 Sugar Research Australia Research Grant under a project 
 titled “Early detection of sugarcane diseases via hyperspectral imaging and deep learning”. 
-Special thanks to [Harpartap Singh](https://au.linkedin.com/in/harpartap-singh-a08b691a9), [Owen Xing](https://scholar.google.com/citations?user=K3KwrPQAAAAJ&hl=en&oi=sra), and Dr [Xiaohan Yu](https://scholar.google.com/citations?user=3PURN9QAAAAJ&hl=en&oi=ao) for helping with the data collection. 
+Special thanks to Mr [Harpartap Singh](https://au.linkedin.com/in/harpartap-singh-a08b691a9), Mr [Owen Xing](https://scholar.google.com/citations?user=K3KwrPQAAAAJ&hl=en&oi=sra), and Dr [Xiaohan Yu](https://scholar.google.com/citations?user=3PURN9QAAAAJ&hl=en&oi=ao) for helping with the data collection. 
 
 ## Citation
 If you want to use this dataset in your research, please consider starring or citing, cheers.
