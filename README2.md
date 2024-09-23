@@ -68,7 +68,7 @@ Since the lighting condition may change at any second, every time when an object
 reference should be captured at the same time, so this white reference can reflect the true lighting condition 
 of the moment when the object is being captured. Now the difficult part is how to get the white reference.
 
-<strong>Method</strong>: <strong>note that the calibration method described in this repo is for scenario two</strong>. 
+<strong>Method</strong>: <strong>note that this repo only contains source code for the calibration method for the scenario two</strong>. 
 Given an image $I\in R^{h\times w\times c}$, note that the calibration board is inside as well. Then we perform 
 dark calibration $I^{d}=I-D$. Since calibration board is in the image, the camera noise in the calibration 
 board (white reference) is removed as well. Then we start to do white calibration. We first use 
